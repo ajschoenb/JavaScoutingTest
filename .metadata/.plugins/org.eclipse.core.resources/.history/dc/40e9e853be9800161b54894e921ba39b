@@ -1,0 +1,21 @@
+package frc;
+
+import javafx.stage.*;
+import javafx.scene.*;
+
+public class ScoutInterface {
+	Stage window;
+	
+	/**
+	 * Constructor for the ScoutInterface class.
+	 * 
+	 * @param primaryStage The primary stage
+	 */
+	public ScoutInterface(Stage primaryStage) {
+		window = primaryStage;
+	}
+	
+	public void load() {
+		
+	}
+}

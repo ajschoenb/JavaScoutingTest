@@ -1,0 +1,44 @@
+package frc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class ScoutQuerier {
+	private static String driver = "org.gjt.mm.mysql.Driver";
+	private static String url = "jdbc:mysql://localhost/phpmyadmin";
+	private static Connection connect = null;
+	
+	/**
+	 * Constructor for ScoutQuerier class. This class handles queries to the 
+	 * MySQL database that runs on the back-end of the application. A query is
+	 * performed using ScoutQuerier.queryDB(String query);
+	 */
+	public static void startConnection() {
+		try {
+			Class.forName(driver);
+			connect = DriverManager.getConnection(url, "root", "");
+			System.out.println("Successfully entered database");
+		} 
+		catch (Exception e) {
+			System.out.println("Error loading MySQL database");
+		}
+	}
+	
+	public static void closeConnection() {
+		try {
+			connect.close();
+		} 
+		catch (SQLException e) {
+			System.out.println("Error closing connection");
+		}
+	}
+	
+	public static String queryDB(String query) {
+		Statement statement = connect.createStatement();
+		ResultSet res = statement.executeQuery(query);
+		return res.toString();
+	}
+}

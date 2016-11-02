@@ -1,0 +1,21 @@
+package frc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+//import java.sql.SQLException;
+
+public class ScoutQuerier {
+	String driver = "org.gjt.mm.mysql.Driver";
+	String url = "jdbc:mysql://localhost/phpmyadmin";
+	Connection connect = null;
+	
+	public ScoutQuerier() {
+		try {
+			Class.forName(driver);
+			connect = DriverManager.getConnection(url, "root", "");
+		} 
+		catch (Exception e) {
+			System.out.println("Error loading MySQL database");
+		}
+	}
+}

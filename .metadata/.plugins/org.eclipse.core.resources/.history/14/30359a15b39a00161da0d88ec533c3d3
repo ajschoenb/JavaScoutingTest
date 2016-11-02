@@ -1,0 +1,73 @@
+package frc;
+
+import javafx.stage.*;
+import javafx.scene.layout.GridPane;
+
+import java.util.ArrayList;
+
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+public class ScoutInterface {
+	private Stage stage;
+	private StackPane layout;
+	private Scene scene;
+	public int selected = -1;
+	public ArrayList<SidebarItem> sidebarItems = new ArrayList<SidebarItem>(0);
+	
+	
+	/**
+	 * Constructor for the ScoutInterface class.
+	 * 
+	 * @param primaryStage The primary stage
+	 */
+	public ScoutInterface(Stage primaryStage) {
+		stage = primaryStage;
+	}
+	
+	/**
+	 * Loads the front-end for the interface.
+	 * Mainly displays the sidebar and field image.
+	 */
+	public void load() {
+		// Load field image in center
+		Image field = new Image("file:img/field.png");
+		ImageView fieldView = new ImageView(field);
+		fieldView.setX(400);
+		fieldView.setY(200);
+		fieldView.setPreserveRatio(true);
+		fieldView.setOnMouseClicked(e -> {
+			double x = e.getSceneX();
+			double y = e.getSceneY();
+			if(selected >= 0) {
+//				Image image = new Image(sidebarItems.get(selected).getURL());
+//				ImageView imageView = new ImageView(image);
+				Text text = new Text(sidebarItems.get(selected).getText());
+				text.setTranslateX(x - (layout.getWidth() / 2));
+				text.setTranslateY(y - (layout.getHeight() / 2));
+				layout.getChildren().add(text);
+			}
+			e.consume();
+		});
+		
+		// Load sidebar
+		/*SidebarItem highGoal = */new SidebarItem("H", 550, -250, this, 0);
+		/*SidebarItem lowGoal = */new SidebarItem("L", 625, -250, this, 1);
+		
+		layout = new StackPane(fieldView);
+//		layout.getChildren().add(highGoal);
+		layout.getChildren().addAll(sidebarItems);
+		scene = new Scene(layout, 1400, 700); // Should be close to max resolution anyway
+		stage.setTitle("FRC Scouting System");
+		stage.setScene(scene);
+		stage.setMaximized(true); // Will make sure of max resolution
+		stage.show();
+	}
+	
+	public void run() {
+		
+	}
+}

@@ -1,0 +1,64 @@
+package frc;
+
+import javafx.stage.*;
+import javafx.scene.layout.GridPane;
+
+import java.util.ArrayList;
+
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+public class ScoutInterface {
+	private Stage stage;
+	private StackPane layout;
+	private Scene scene;
+	public int selected;
+	public ArrayList<SidebarItem> sidebarItems = new ArrayList<SidebarItem>(0);
+	
+	
+	/**
+	 * Constructor for the ScoutInterface class.
+	 * 
+	 * @param primaryStage The primary stage
+	 */
+	public ScoutInterface(Stage primaryStage) {
+		stage = primaryStage;
+	}
+	
+	/**
+	 * Loads the front-end for the interface.
+	 * Mainly displays the sidebar and field image.
+	 */
+	public void load() {
+		// Load field image in center
+		Image field = new Image("file:img/field.png");
+		ImageView fieldView = new ImageView(field);
+		fieldView.setX(400);
+		fieldView.setY(200);
+		fieldView.setPreserveRatio(true);
+		fieldView.setOnMouseClicked(e -> {
+			double x = e.getSceneX();
+			double y = e.getSceneY();
+			ImageView imageView = sidebarItems.get(selected).getImageView();
+			imageView.setTranslateX(layout.getWidth() / 2);
+			e.consume();
+		});
+		
+		// Load sidebar
+		SidebarItem highGoal = new SidebarItem("file:img/highgoal.png", this, 0);
+		
+		layout = new StackPane(imageView);
+		layout.getChildren().add(highGoal);
+		scene = new Scene(layout, 1400, 700); // Should be close to max resolution anyway
+		stage.setTitle("FRC Scouting System");
+		stage.setScene(scene);
+		stage.setMaximized(true); // Will make sure of max resolution
+		stage.show();
+	}
+	
+	public void run() {
+		
+	}
+}

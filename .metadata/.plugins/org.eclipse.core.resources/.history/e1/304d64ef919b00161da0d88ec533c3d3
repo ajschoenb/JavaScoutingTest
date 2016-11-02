@@ -1,0 +1,9 @@
+package frc;
+
+import java.sql.Connection;
+
+public class ScoutQuerier {
+	public ScoutQuerier() {
+		
+	}
+}

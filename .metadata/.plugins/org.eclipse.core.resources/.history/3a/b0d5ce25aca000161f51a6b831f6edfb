@@ -1,0 +1,11 @@
+package frc;
+
+import java.util.ArrayList;
+
+public class Config {
+	private static ArrayList<String[]> sidebarConfig = new ArrayList<String[]>(0);
+	
+	public static void setupVars() {
+		sidebarConfig.add("H");
+	}
+}

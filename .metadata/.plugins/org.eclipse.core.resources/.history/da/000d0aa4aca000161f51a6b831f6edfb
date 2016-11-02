@@ -1,0 +1,11 @@
+package frc;
+
+import java.util.ArrayList;
+
+public class Config {
+	
+	
+	public static void setupVars() {
+		}
+	}
+}

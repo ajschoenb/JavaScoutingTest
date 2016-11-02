@@ -1,0 +1,11 @@
+package frc;
+
+
+
+public class SidebarItem {
+	Image highGoal = new Image("file:img/highgoal.png");
+	ImageView highGoalView = new ImageView(highGoal);
+	highGoalView.setX(200);
+	highGoalView.setY(200);
+	highGoalView.setPreserveRatio(true);
+}

@@ -1,0 +1,32 @@
+package frc;
+
+import javafx.stage.*;
+import javafx.application.Application;
+
+public class Main extends Application {
+	private ScoutInterface scoutInt;
+	
+	public static void main(String[] args) {
+		launch(args);
+	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		setupDB();
+		loadInterface(primaryStage);
+		runSystem();
+	}
+	
+	void setupDB() {
+		// TODO: add connection to mysql database
+	}
+	
+	void loadInterface(Stage primaryStage) {
+		scoutInt = new ScoutInterface(primaryStage);
+		scoutInt.load();
+	}
+	
+	void runSystem() {
+		scoutInt.run();
+	}
+}

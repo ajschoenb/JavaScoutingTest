@@ -1,0 +1,82 @@
+package frc;
+
+import javafx.stage.*;
+import javafx.scene.layout.GridPane;
+
+import java.util.ArrayList;
+
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+public class ScoutInterface {
+	private Stage stage;
+	private StackPane layout;
+	private Scene scene;
+	public int selected = -1;
+	public ArrayList<SidebarItem> sidebarItems = new ArrayList<SidebarItem>(0);
+	
+	
+	/**
+	 * Constructor for the ScoutInterface class.
+	 * 
+	 * @param primaryStage The primary stage
+	 */
+	public ScoutInterface(Stage primaryStage) {
+		stage = primaryStage;
+	}
+	
+	/**
+	 * Loads the front-end for the interface.
+	 * Mainly displays the sidebar and field image.
+	 */
+	public void load() {
+		// Load field image in center
+		Image field = new Image("file:img/field.png");
+		ImageView fieldView = new ImageView(field);
+		fieldView.setX(400);
+		fieldView.setY(200);
+		fieldView.setPreserveRatio(true);
+		fieldView.setOnMouseClicked(e -> {
+			double x = e.getSceneX();
+			double y = e.getSceneY();
+			if(selected >= 0) {
+//				Image image = new Image(sidebarItems.get(selected).getURL());
+//				ImageView imageView = new ImageView(image);
+//				Text[] text = new Text(sidebarItems.get(selected).getText());
+				String[] text = sidebarItems.get(selected).getText();
+				for(String s : text) {
+					Text t = new Text(s);
+					t.setFont(Font.font("Arial", FontWeight.EXTRA_BOLD, 48));
+					t.setTranslateX(x - (layout.getWidth() / 2));
+					t.setTranslateY(y - (layout.getHeight() / 2));
+					layout.getChildren().add(t);
+				}
+			}
+			e.consume();
+		});
+		
+		// Load sidebar
+		new SidebarItem(550, -250, this, 0, "H");
+		new SidebarItem(600, -250, this, 1, "L");
+		new SidebarItem(550, -200, this, 2, "H", "X");
+		new SidebarItem(600, -200, this, 2, "L", "X");
+		
+		layout = new StackPane(fieldView);
+//		layout.getChildren().add(highGoal);
+		layout.getChildren().addAll(sidebarItems);
+		scene = new Scene(layout, 1400, 700); // Should be close to max resolution anyway
+		stage.setTitle("FRC Scouting System");
+		stage.setScene(scene);
+		stage.setMaximized(true); // Will make sure of max resolution
+		stage.show();
+	}
+	
+	public void run() {
+		
+	}
+}

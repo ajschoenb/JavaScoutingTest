@@ -1,0 +1,51 @@
+package frc;
+
+import javafx.stage.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+public class ScoutInterface {
+	Stage stage;
+	StackPane layout;
+	Scene scene;
+	
+	
+	/**
+	 * Constructor for the ScoutInterface class.
+	 * 
+	 * @param primaryStage The primary stage
+	 */
+	public ScoutInterface(Stage primaryStage) {
+		stage = primaryStage;
+	}
+	
+	/**
+	 * Loads the front-end for the interface.
+	 * Mainly displays the sidebar and field image.
+	 */
+	public void load() {
+		// Load field image in center
+		Image image = new Image("file:img/field.png");
+		ImageView imageView = new ImageView(image);
+		imageView.setX(400);
+		imageView.setY(200);
+		imageView.setPreserveRatio(true);
+		
+		// Load sidebar
+		ArrayList<StackPane>
+		
+		layout = new StackPane(imageView);
+		scene = new Scene(layout, 1400, 700); // Should be close to max resolution anyway
+		stage.setTitle("FRC Scouting System");
+		stage.setScene(scene);
+		stage.setMaximized(true); // Will make sure of max resolution
+		stage.show();
+	}
+	
+	public void run() {
+		
+	}
+}

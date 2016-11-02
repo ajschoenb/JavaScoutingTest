@@ -1,0 +1,66 @@
+package frc;
+
+import java.util.ArrayList;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+
+public class SidebarItem extends StackPane {
+	private int ID;
+	private String[] txt;
+	private Rectangle rect;
+	
+	public SidebarItem(double posX, double posY, ScoutInterface scoutInterface, int id, String... t) {
+		ID = id;
+		txt = t;
+//		Image image = new Image(url);
+//		ImageView imageView = new ImageView(image);
+//		imageView.setPreserveRatio(true);
+//		ArrayList<Text> text = new ArrayList<Text>(0);
+		for(String s : t) {
+			Text text = new Text(txt[i]);
+			text.setFont(Font.font("Arial", FontWeight.EXTRA_BOLD, 48));
+			this.getChildren().add(text);
+		}
+		rect = new Rectangle(55, 55);
+		rect.setFill(Color.WHITE);
+		this.setOnMouseClicked(e -> {
+//			rect.setFill(Color.CHARTREUSE);
+			for(SidebarItem item : scoutInterface.sidebarItems) {
+				if(item.getID() != ID) {
+					item.setFill(Color.WHITE);
+				}
+				else {
+					item.setFill(Color.CHARTREUSE);
+				}
+			}
+			e.consume();
+			scoutInterface.selected = ID;
+		});
+//		this.getChildren().addAll(rect, text);
+		this.getChildren().add(rect);
+		this.setTranslateX(posX);
+		this.setTranslateY(posY);
+		this.setMaxHeight(75);
+		this.setMaxWidth(75);
+		scoutInterface.sidebarItems.add(this);
+	}
+	
+	public String[] getText() {
+		return txt;
+	}
+	
+	public int getID() {
+		return ID;
+	}
+	
+	public void setFill(Color c) {
+		rect.setFill(c);
+	}
+}

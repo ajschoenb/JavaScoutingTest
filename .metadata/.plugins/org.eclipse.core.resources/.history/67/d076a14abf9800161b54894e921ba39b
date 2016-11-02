@@ -1,0 +1,27 @@
+package frc;
+
+import javafx.stage.*;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+
+public class ScoutInterface {
+	Stage window;
+	StackPane field;
+	
+	
+	/**
+	 * Constructor for the ScoutInterface class.
+	 * 
+	 * @param primaryStage The primary stage
+	 */
+	public ScoutInterface(Stage primaryStage) {
+		window = primaryStage;
+	}
+	
+	/**
+	 * Loads the front-end for the interface.
+	 * Mainly displays the sidebar and field image.
+	 */
+	public void load() {
+	}
+}

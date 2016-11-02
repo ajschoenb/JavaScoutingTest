@@ -1,0 +1,18 @@
+package frc;
+
+public class Config {
+	private static String[][] sidebarConfig = null;
+	private static String fieldImg = null;
+	
+	public static void setupVars() {
+		sidebarConfig[0][0] = "H";
+		sidebarConfig[1][0] = "H";
+		sidebarConfig[1][1] = "X";
+		sidebarConfig[2][0] = "L";
+		sidebarConfig[3][0] = "L";
+		sidebarConfig[3][1] = "X";
+		sidebarConfig[4][0] = "\u0394";
+		sidebarConfig[5][0] = "\u2207";
+		fieldImg = "file:img/field.png";
+	}
+}

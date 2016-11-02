@@ -1,0 +1,15 @@
+package frc;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+
+public class SidebarItem extends StackPane {
+	public SidebarItem(String url) {
+		Image image = new Image(url);
+		ImageView imageView = new ImageView(image);
+		imageView.setX(200);
+		imageView.setY(200);
+		imageView.setPreserveRatio(true);
+	}
+}

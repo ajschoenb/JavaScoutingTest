@@ -1,0 +1,13 @@
+package frc;
+
+public class Lib {
+	public boolean canParseInt(String s) {
+		try {
+			Integer.parseInt(s);
+			return true;
+		}
+		catch (NumberFormatException e) {
+			return false;
+		}
+	}
+}

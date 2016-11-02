@@ -1,0 +1,46 @@
+package frc;
+
+import com.sun.javafx.image.impl.ByteIndexed.Getter;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+
+public class SidebarItem extends StackPane {
+	private int ID;
+	private String URL;
+	
+	public SidebarItem(String url, ScoutInterface scoutInterface, int id) {
+		ID = id;
+		URL = url;
+		Image image = new Image(url);
+		ImageView imageView = new ImageView(image);
+		imageView.setPreserveRatio(true);
+		Rectangle rect = new Rectangle(75, 75);
+		rect.setFill(Color.WHITE);
+		this.setOnMouseClicked(e -> {
+			rect.setFill(Color.CHARTREUSE);
+			for(SidebarItem item : scoutInterface.sidebarItems) {
+				if()
+			}
+			e.consume();
+			scoutInterface.selected = ID;
+		});
+		this.getChildren().addAll(rect, imageView);
+		this.setTranslateX(550);
+		this.setTranslateY(-250);
+		this.setMaxHeight(75);
+		this.setMaxWidth(75);
+		scoutInterface.sidebarItems.add(this);
+	}
+	
+	public String getURL() {
+		return URL;
+	}
+	
+	public int getID() {
+		return ID;
+	}
+}

@@ -1,0 +1,75 @@
+package frc;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class ScoutQuerier {
+	private static String driver = "org.gjt.mm.mysql.Driver";
+	private static String url = "jdbc:mysql://localhost/phpmyadmin";
+	private static Connection connect = null;
+	private static PreparedStatement insertSQL = null;
+	
+	/**
+	 * Constructor for ScoutQuerier class. This class handles queries to the 
+	 * MySQL database that runs on the back-end of the application. A query is
+	 * performed using ScoutQuerier.queryDB(String query);
+	 */
+	public static void startConnection() {
+		try {
+			Class.forName(driver);
+			connect = DriverManager.getConnection(url, "root", "");
+			System.out.println("INFO: Successfully entered database");
+			insertSQL = connect.prepareStatement("INSERT INTO frcscout2016.matches "
+					+ "(team_number, match_number, tele_high_made, tele_high_missed, "
+					+ "tele_low_made, tele_low_missed, tele_challenge, tele_hang, "
+					+ "contributed_score) VALUES (118, 1, ?, ?, ?, ?, ?, ?, ?);");
+		} 
+		catch (Exception e) {
+			System.out.println("ERROR: Error loading MySQL database");
+		}
+	}
+	
+	public static void closeConnection() {
+		try {
+			connect.close();
+		} 
+		catch (SQLException e) {
+			System.out.println("ERROR: Error closing connection");
+		}
+	}
+	
+	public static ResultSet queryDB(String query) {
+//		Statement statement;
+		try {
+//			CallableStatement
+			PreparedStatement statement = connect.prepareStatement(query);
+//			statement = connect.createStatement();
+//			ResultSet res = statement.executeQuery(query);
+			ResultSet res = statement.executeQuery();
+			return res;
+		} catch (SQLException e) {
+			System.out.println("ERROR: Error querying database. Query: " + query);
+		}
+		return null;
+	}
+	
+	public static ResultSet insertDB(Object... param) {
+//		Statement statement;
+		try {
+//			CallableStatement
+			PreparedStatement statement = connect.prepareStatement(query);
+//			statement = connect.createStatement();
+//			ResultSet res = statement.executeQuery(query);
+			ResultSet res = statement.executeQuery();
+			return res;
+		} catch (SQLException e) {
+			System.out.println("ERROR: Error querying database. Query: " + query);
+		}
+		return null;
+	}
+}

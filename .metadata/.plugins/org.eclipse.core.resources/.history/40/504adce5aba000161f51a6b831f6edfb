@@ -1,0 +1,5 @@
+package frc;
+
+public class Config {
+	private static ArrayList<String[]> sidebarConfig = new ArrayList<String[]>(0);
+}

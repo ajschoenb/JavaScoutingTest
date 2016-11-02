@@ -1,0 +1,14 @@
+package frc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class ScoutQuerier {
+	String driver = "org.gjt.mm.mysql.Driver";
+	String url = "jdbc:mysql://localhost/phpmyadmin";
+	
+	public ScoutQuerier() {
+		Class.forName(driver);
+		Connection connect = DriverManager.getConnection(url, "root", "");
+	}
+}

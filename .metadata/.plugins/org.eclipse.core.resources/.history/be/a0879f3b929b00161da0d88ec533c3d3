@@ -1,0 +1,20 @@
+package frc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class ScoutQuerier {
+	String driver = "org.gjt.mm.mysql.Driver";
+	String url = "jdbc:mysql://localhost/phpmyadmin";
+	
+	public ScoutQuerier() {
+		try {
+		Class.forName(driver);
+			Connection connect = DriverManager.getConnection(url, "root", "");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

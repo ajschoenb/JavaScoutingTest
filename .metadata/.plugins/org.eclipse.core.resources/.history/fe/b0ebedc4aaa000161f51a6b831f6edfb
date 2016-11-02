@@ -1,0 +1,80 @@
+package frc;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class ScoutQuerier {
+	private static String driver = "org.gjt.mm.mysql.Driver";
+	private static String url = "jdbc:mysql://localhost/phpmyadmin";
+	private static Connection connect = null;
+	private static PreparedStatement insertSQL = null;
+	
+	/**
+	 * Constructor for ScoutQuerier class. This class handles queries to the 
+	 * MySQL database that runs on the back-end of the application. A query is
+	 * performed using ScoutQuerier.queryDB(String query);
+	 */
+	public static void startConnection() {
+		try {
+			Class.forName(driver);
+			connect = DriverManager.getConnection(url, "root", "");
+			System.out.println("INFO: Successfully entered database");
+//			insertSQL = connect.prepareStatement("INSERT INTO frcscout2016.matches "
+//					+ "(team_number, match_number, tele_high_made, tele_high_missed, "
+//					+ "tele_low_made, tele_low_missed, tele_challenge, tele_hang, "
+//					+ "contributed_score) VALUES (118, 1, ?, ?, ?, ?, ?, ?, ?);");
+			insertSQL = connect.prepareStatement("INSERT INTO `matches` (`team_number`, `match_number`, `a1_successful`, `a2_successful`, `b1_successful`, `b2_successful`, `c1_successful`, `c2_successful`, `d1_successful`, `d2_successful`, `lb_successful`, `a1_failed`, `a2_failed`, `b1_failed`, `b2_failed`, `c1_failed`, `c2_failed`, `d1_failed`, `d2_failed`, `lb_failed`, `a1_attempts`, `a2_attempts`, `b1_attempts`, `b2_attempts`, `c1_attempts`, `c2_attempts`, `d1_attempts`, `d2_attempts`, `lb_attempts`, `a1_total`, `a2_total`, `b1_total`, `b2_total`, `c1_total`, `c2_total`, `d1_total`, `d2_total`, `lb_total`, `a1_assists`, `a2_assists`, `b1_assists`, `b2_assists`, `c1_assists`, `c2_assists`, `d1_assists`, `d2_assists`, `lb_assists`, `a1_stuck`, `a2_stuck`, `b1_stuck`, `b2_stuck`, `c1_stuck`, `c2_stuck`, `d1_stuck`, `d2_stuck`, `lb_stuck`, `auton_floor_intake`, `auton_defense_crossed`, `auton_defense_total`, `auton_high`, `auton_high_missed`, `auton_low`, `auton_low_missed`, `auton_reach`, `auton_score`, `tele_high_made`, `tele_high_missed`, `tele_forced_miss`, `tele_low_made`, `tele_low_missed`, `tele_hp_high_intake`, `tele_hp_high_intake_dropped`, `tele_floor_intake`, `tele_knock_out`, `tele_hang`, `tele_hang_failed`, `tele_challenge`, `tele_challenge_failed`, `driver_rating`, `bully_rating`, `fouls_noticed`, `dead`, `contributed_score`) VALUES ('', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''");
+		} 
+		catch (Exception e) {
+			System.out.println("ERROR: Error loading MySQL database");
+		}
+	}
+	
+	public static void closeConnection() {
+		try {
+			connect.close();
+		} 
+		catch (SQLException e) {
+			System.out.println("ERROR: Error closing connection");
+		}
+	}
+	
+	public static ResultSet queryDB(String query) {
+//		Statement statement;
+		try {
+//			CallableStatement
+			PreparedStatement statement = connect.prepareStatement(query);
+//			statement = connect.createStatement();
+//			ResultSet res = statement.executeQuery(query);
+			ResultSet res = statement.executeQuery();
+			return res;
+		} catch (SQLException e) {
+			System.out.println("ERROR: Error querying database. Query: " + query);
+		}
+		return null;
+	}
+	
+	public static void insertDB(Object... param) {
+		try {
+			System.out.println("length: " + param.length);
+			for(int i = 0; i < param.length; i++) {
+				try {
+					int par = Integer.parseInt(param[i].toString());
+					insertSQL.setInt(i + 1, par);
+				} catch (NumberFormatException e) {
+					String par = param[i].toString();
+					insertSQL.setString(i + 1, par);
+				}
+			}
+			insertSQL.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("ERROR: Error querying database. Query: " + insertSQL);
+		}
+	}
+}

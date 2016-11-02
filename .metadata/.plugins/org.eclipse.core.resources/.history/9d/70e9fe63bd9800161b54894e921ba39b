@@ -1,0 +1,12 @@
+package frc;
+
+import javafx.stage.*;
+import javafx.scene.*;
+
+public class ScoutInterface {
+	Stage window;
+	
+	public ScoutInterface(Stage primaryStage) {
+		window = primaryStage;
+	}
+}
